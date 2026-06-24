@@ -39,7 +39,13 @@ def init_db():
 
 
 init_db()
+connection = sqlite3.connect("database.db")
+cursor = connection.cursor()
 
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+print(cursor.fetchall())
+
+connection.close()
 TOKEN = "8725956965:AAGGM_LZA1IGT1WKe7sBCdrvHHz-pUlqf4s"
 CHAT_ID = "7780318857"
 
