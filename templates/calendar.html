@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Календарь записей</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+{% include "navbar.html" %}
+
+<div class="container py-5">
+
+    <h1 class="mb-4">
+        📅 Календарь записей
+    </h1>
+    <form method="GET" action="/calendar" class="mb-4">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <input
+                type="date"
+                class="form-control"
+                name="date"
+                value="{{ selected_date }}">
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button class="btn btn-primary w-100">
+                Показать
+            </button>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <a href="/calendar"
+               class="btn btn-secondary w-100">
+                Все
+            </a>
+
+        </div>
+
+    </div>
+
+</form>
+
+    <div class="table-responsive">
+
+<table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-dark">
+
+        <tr>
+
+            <th>Дата</th>
+            <th>Время</th>
+            <th>Клиент</th>
+            <th>Телефон</th>
+            <th>Услуга</th>
+            <th>Действия</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for client in clients %}
+
+        <tr>
+
+    <td>{{ client[3] }}</td>
+    <td>{{ client[4] }}</td>
+    <td>{{ client[1] }}</td>
+    <td>{{ client[2] }}</td>
+    <td>{{ client[6] }}</td>
+
+    <td>
+
+        <a href="/edit/{{ client[0] }}"
+           class="btn btn-warning btn-sm">
+            ✏️
+        </a>
+
+        <a href="/delete/{{ client[0] }}"
+           class="btn btn-danger btn-sm">
+            🗑
+        </a>
+
+    </td>
+
+</tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+</div>
+    <a href="/admin" class="btn btn-secondary">
+        ← Назад
+    </a>
+
+</div>
+
+{% include "footer.html" %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
