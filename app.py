@@ -9,6 +9,37 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key_123"
+def init_db():
+    connection = sqlite3.connect("database.db")
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS clients (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        phone TEXT,
+        service TEXT,
+        date TEXT,
+        time TEXT,
+        comment TEXT
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS reviews (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        rating INTEGER,
+        comment TEXT
+    )
+    """)
+
+    connection.commit()
+    connection.close()
+
+
+init_db()
+
 TOKEN = "8725956965:AAGGM_LZA1IGT1WKe7sBCdrvHHz-pUlqf4s"
 CHAT_ID = "7780318857"
 
