@@ -49,8 +49,7 @@ init_db()
 connection = sqlite3.connect("database.db")
 cursor = connection.cursor()
 
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-print(cursor.fetchall())
+
 
 connection.close()
 TOKEN = "8725956965:AAGGM_LZA1IGT1WKe7sBCdrvHHz-pUlqf4s"
@@ -74,7 +73,7 @@ def home():
 
     if request.method == "POST":
 
-        print(request.form)
+
 
         name = request.form["name"]
         phone = request.form["phone"]
@@ -182,7 +181,7 @@ def reviews():
         """, (name, rating, comment))
 
         connection.commit()
-        print("Отзыв сохранён!")
+      
 
         return redirect("/reviews")
 
@@ -230,7 +229,7 @@ def admin():
     # Клиенты
     cursor.execute("SELECT * FROM clients ORDER BY id DESC")
     clients = cursor.fetchall()
-    print(clients)
+
 
     # Отзывы
     cursor.execute("SELECT * FROM reviews ORDER BY id DESC")
