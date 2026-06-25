@@ -230,6 +230,7 @@ def admin():
     # Клиенты
     cursor.execute("SELECT * FROM clients ORDER BY id DESC")
     clients = cursor.fetchall()
+    print(clients)
 
     # Отзывы
     cursor.execute("SELECT * FROM reviews ORDER BY id DESC")
@@ -443,5 +444,3 @@ def delete_photo(filename):
     return redirect("/gallery_admin")
 if __name__ == "__main__":
     app.run(debug=True)
-
-
