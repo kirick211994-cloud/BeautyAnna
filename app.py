@@ -3,7 +3,7 @@ import psycopg2
 import os
 import requests
 
-from datetime import date
+from datetime import date, datetime
 from flask import Flask, render_template, request, redirect, session, jsonify
 from werkzeug.utils import secure_filename
 
@@ -81,7 +81,21 @@ def home():
         date = request.form["date"]
         time = request.form["time"]
         comment = request.form["comment"]
+        from datetime import datetime
 
+        selected_date = datetime.strptime(date, "%Y-%m-%d")
+
+        # 5 = суббота, 6 = воскресенье
+        if selected_date.weekday() in [5, 6]:
+            return """
+            <h2 style='color:red;text-align:center;margin-top:50px;'>
+                ❌ Запись возможна только с понедельника по пятницу.
+            </h2>
+
+            <div style="text-align:center;margin-top:30px;">
+                <a href="/booking">Вернуться назад</a>
+            </div>
+            """
 
         connection = sqlite3.connect("database.db")
         cursor = connection.cursor()
@@ -181,7 +195,7 @@ def reviews():
         """, (name, rating, comment))
 
         connection.commit()
-      
+
 
         return redirect("/reviews")
 
