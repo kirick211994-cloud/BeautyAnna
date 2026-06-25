@@ -1,6 +1,6 @@
-
-import os
 import sqlite3
+import psycopg2
+import os
 import requests
 
 from datetime import date
@@ -9,6 +9,13 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key_123"
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    connection = psycopg2.connect(DATABASE_URL)
+else:
+    connection = sqlite3.connect("database.db")
+
 def init_db():
     connection = sqlite3.connect("database.db")
     cursor = connection.cursor()
@@ -47,7 +54,7 @@ print(cursor.fetchall())
 
 connection.close()
 TOKEN = "8725956965:AAGGM_LZA1IGT1WKe7sBCdrvHHz-pUlqf4s"
-CHAT_ID = "7780318857"
+CHAT_ID = "1713246120"
 
 
 def send_telegram_message(text):
